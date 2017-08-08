@@ -1,0 +1,11 @@
+{
+  "name": "HelloWorld",
+  "version": "1.0.0",
+  "description": "helloWorld",
+  "main": "index.js",
+  "author": "ylh",
+  "license": "MIT",
+  "dependencies": {
+    "react-native": "^0.47.1"
+  }
+}

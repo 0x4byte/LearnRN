@@ -1,0 +1,25 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+platform :ios,'9.0'
+use_frameworks!
+
+target 'HelloWorldSwift' do
+  # Pods for HelloWorldSwift
+  # Your 'node_modules' directory is probably in the root of your project,
+  # but if not, adjust the `:path` accordingly
+  pod 'React', :path => 'ReactNative/node_modules/react-native', :subspecs => [
+    'Core',
+    'DevSupport', # Include this to enable In-App Devmenu if RN >= 0.43
+    'RCTText',
+    'RCTImage',
+    'RCTNetwork',
+    'BatchedBridge',
+    'RCTWebSocket',
+    'RCTAnimation',
+  ]
+  # Explicitly include Yoga if you are using RN >= 0.42.0
+  pod "Yoga", :path => "ReactNative/node_modules/react-native/ReactCommon/yoga"
+
+end
+
