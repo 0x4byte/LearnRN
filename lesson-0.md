@@ -33,39 +33,43 @@
    缺点: 没有比较统一的UI组件，没有统一的打包上线规范。
 
 ## RN集成到现有app，helloWorld演示(以ios项目为例子)
-[参考官方链接]()
-1. react-native init helloworld && cd helloworld
+[参考官方链接](http://facebook.github.io/react-native/docs/integration-with-existing-apps.html)
+> 本示例在 react-native@0.47.1版本上搭建
+1. react-native init HelloWorldJs && cd HelloWorldJs
 2. 删除原生项目依赖，rm -rf ios android
-3. cd => 需要集成的ios项目(greatwall为例)
+3. cd HelloWorldJs && yarn add react-native@0.47.1 确保新安装的是0.47.1
+3. 进入原生项目, cd => HelloWorldSwift
 4. mkdir ReactNative
 5. yarn init
-6. yarn add react-native, 确保安装的版本号和具体react-native项目一致
+6. yarn add react-native@0.47.1, 确保安装的版本号和具体js项目一致
 7. 安装ios包管理工具pod, `sudo brew install cocoapods`, 并更新 Podfile
+
 ```ruby
-...
-target "greatwall" do
-...
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
 
-# react-native
-pod 'React',
-    :path => 'ReactNative/node_modules/react-native',
-    :subspecs => [
-        'Core',
-        'DevSupport', # 如果RN版本 >= 0.43，则需要加入此行才能开启开发者菜单
-        'RCTText',
-        'RCTImage',
-        'RCTNetwork',
-        'RCTWebSocket',
-        'RCTLinkingIOS',
-        'RCTAnimation',
-        'RCTActionSheet',
-        'BatchedBridge',
-    ]
+platform :ios,'9.0'
+use_frameworks!
 
-pod 'Yoga',
-    :path => 'ReactNative/node_modules/react-native/ReactCommon/yoga'
+target 'HelloWorldSwift' do
+  # Pods for HelloWorldSwift
+  # Your 'node_modules' directory is probably in the root of your project,
+  # but if not, adjust the `:path` accordingly
+  pod 'React', :path => 'ReactNative/node_modules/react-native', :subspecs => [
+    'Core',
+    'DevSupport', # Include this to enable In-App Devmenu if RN >= 0.43
+    'RCTText',
+    'RCTImage',
+    'RCTNetwork',
+    'BatchedBridge',
+    'RCTWebSocket',
+    'RCTAnimation',
+  ]
+  # Explicitly include Yoga if you are using RN >= 0.42.0
+  pod "Yoga", :path => "ReactNative/node_modules/react-native/ReactCommon/yoga"
 
 end
+
 ```
 8. pod install
 9. 新建入口文件 HelloWorldViewController.swift
@@ -78,24 +82,41 @@ class HelloWorldViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         
-        let jsCodeLocation = NSURL(string: "http://localhost:8081/index.ios.bundle?platform=ios")
+        let jsCodeLocation = NSURL(string: "http://127.0.0.1:8081/index.ios.bundle")
+        
         let rootView = RCTRootView(
             bundleURL: jsCodeLocation! as URL,
-            moduleName: "myosotis",
+            moduleName: "helloworld",
             initialProperties: nil,
             launchOptions: nil
         )
-
+        
         self.view = rootView;
     }
 }
 ```
 10. 加载RN入口页面
 ```swift
-// FunctionViewController
-let viewController:HelloWorldViewController = HelloWorldViewController()
-self.navigationController?.pushViewController(viewController, animated: true);
+// ViewController.swift
+let vc = HelloWorldViewController()
+self.navigationController?.pushViewController(vc, animated: true);
+```
+11. 示例源码请见, HelloWorldJs 和 HelloWorldSwift
+
+## 问题集锦
+1. 如遇报错
+```
+Unable to find a specification for `Folly` depended upon by `React/CxxBridge`
+
+请将Podfile文件中 CxxBridge => BatchedBridge 后重新pod install
+```
+2. 如遇报错
+```
+#import <NativeAnimation/RCTValueAnimatedNode.h>
+请改为
+#import "RCTValueAnimatedNode.h"
 ```
 
 参考链接
