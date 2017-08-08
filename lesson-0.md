@@ -72,7 +72,7 @@ end
 
 ```
 8. pod install
-9. 新建入口文件 HelloWorldViewController.swift
+9. open HelloWorldSwift.xcworkspace && 新建入口文件 HelloWorldViewController.swift
 ```swift
 // HelloWorldViewController.swift
 import UIKit
