@@ -4,11 +4,12 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
+    "build-ios": "mkdir dist && react-native bundle --entry-file index.ios.js --platform ios --dev false --assets-dest dist --bundle-output dist/main.jsbundle --verbose"
 	},
 	"dependencies": {
 		"react": "16.0.0-alpha.12",
-		"react-native": "0.47.1"
+		"react-native": "0.47.1",
+		"react-navigation": "^1.0.0-beta.11"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",

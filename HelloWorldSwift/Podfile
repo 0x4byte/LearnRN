@@ -17,6 +17,7 @@ target 'HelloWorldSwift' do
     'BatchedBridge',
     'RCTWebSocket',
     'RCTAnimation',
+    'RCTLinkingIOS',
   ]
   # Explicitly include Yoga if you are using RN >= 0.42.0
   pod "Yoga", :path => "ReactNative/node_modules/react-native/ReactCommon/yoga"
