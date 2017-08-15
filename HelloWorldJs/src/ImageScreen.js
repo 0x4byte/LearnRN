@@ -5,7 +5,7 @@ import { Image, ImageResizeModeStatic, View } from 'react-native'
 const loadUri = () => {
   const uri = 'https://oe3n2j0gt.qnssl.com/panda/1.0.34/images/shangjia/mobile.jpg'
 
-  return <Image source={{ uri }} style={{ height: 300, }} />
+  return <Image source={{ uri }} />
 }
 
 const requireImg = () => {
