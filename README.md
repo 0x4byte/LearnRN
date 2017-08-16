@@ -23,7 +23,7 @@ cd LearnRN
 4. open HelloWorldSwift.xcworkspace
 ```
 
-`安装流程可参考: lesson-0`
+`安装流程可参考: [lesson-0](https://github.com/leetlin/LearnRN/blob/master/lesson-0.md)`
 
 ### start
 ```
